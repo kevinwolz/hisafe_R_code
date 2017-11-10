@@ -1,10 +1,10 @@
 ########################################################################
-#  SCRIPT de GENERATION de répertoire de simulation                    #
-#  On part d'un répertoire de réference qui contient tous les fichiers #
-#  On copie dans autant de répertoire que de simulation générée        #
-#  On modifie les paramètres de l'arbre dans chaque répertoire         #
+#  SCRIPT de GENERATION de rÃ©pertoire de simulation                    #
+#  On part d'un rÃ©pertoire de rÃ©ference qui contient tous les fichiers #
+#  On copie dans autant de rÃ©pertoire que de simulation gÃ©nÃ©rÃ©e        #
+#  On modifie les paramÃ¨tres de l'arbre dans chaque rÃ©pertoire         #
 #                                                                      #
-#  Script écrit par Isabelle LECOMTE le 15/10/2015                     #
+#  Script Ã©crit par Isabelle LECOMTE le 15/10/2015                     #
 #   and adapted by Francesco Reyes during 2017                         #
 ########################################################################
 
@@ -50,13 +50,13 @@ for (l in 1:length(simulationYearStart) )
 {
   for (s in 1:dim(sysAgr)[1] )
   {
-        #------------ Creation nouveau répertoire ----------------#
+        #------------ Creation nouveau rÃ©pertoire ----------------#
 #        nouveau_repertoire=paste(repertoire,'_YR',simulationYearStart[l],"_T",sysAgr$nbTrees[s],"_BR",sysAgr$spacingBetweenRows[s],"_WR",sysAgr$spacingWithinRows[s],sep="")            
         nouveau_repertoire=paste(repertoire,"_",Treatment[s],'_YR',simulationYearStart[l],"_T",sysAgr$nbTrees[s],"_BR",sysAgr$spacingBetweenRows[s],"_WR",sysAgr$spacingWithinRows[s],sep="")                    
         path_nouveau_repertoire=paste(lot,nouveau_repertoire,sep="/")
         dir.create(path_nouveau_repertoire)
                 
-        #------------ Recopie contenu du répertoire de réference dans le nouveau  -------#
+        #------------ Recopie contenu du rÃ©pertoire de rÃ©ference dans le nouveau  -------#
         system(
           paste( "robocopy", repertoire, path_nouveau_repertoire, "/e", sep=" ")
         )
@@ -67,7 +67,7 @@ for (l in 1:length(simulationYearStart) )
         file.rename(fichier, nouveau_sim)
 
 
-        #------------ Modification paramètres dans le fichier ".sim" ----------------#
+        #------------ Modification paramÃ¨tres dans le fichier ".sim" ----------------#
         param <- file(nouveau_sim, open = "r")
         sortie <- file("myFile.txt", open = "w")
         
@@ -103,7 +103,7 @@ for (l in 1:length(simulationYearStart) )
 
         
         
-        #------------ Positionnement dans le su-repertoire du fichier plot et Modification de ses paramètres  ----------------#
+        #------------ Positionnement dans le su-repertoire du fichier plot et Modification de ses paramÃ¨tres  ----------------#
         setwd("plotDescription")
         param <- file("Restinclieres_AF_A2.pld", open = "r")
         sortie <- file("myFile.txt", open = "w")
@@ -145,7 +145,7 @@ for (l in 1:length(simulationYearStart) )
         
 
         
-        #------------ Positionnement dans le repertoire "/exportParameters" et Modification des paramètres du fichier root ----------------#
+        #------------ Positionnement dans le repertoire "/exportParameters" et Modification des paramÃ¨tres du fichier root ----------------#
         setwd(paste(baseWD,"/",path_nouveau_repertoire, "/exportParameters", sep=""))
         param <- file("roots.pro", open = "r")
         sortie <- file("myFile.txt", open = "w")
@@ -162,7 +162,7 @@ for (l in 1:length(simulationYearStart) )
             # nouvelle_ligne=paste(sx_ligne,SafeVoxel[s],dx_ligne,sep="")
             nouvelle_ligne=paste(res[1],res[2],SafeVoxel[s],res[5],sep="\t")
             writeLines(nouvelle_ligne, con = sortie)
-            print (paste("ligne changé avec",nouvelle_ligne))
+            print (paste("ligne changÃ© avec",nouvelle_ligne))
           }   
           else {
             writeLines(line, con = sortie)
@@ -176,7 +176,7 @@ for (l in 1:length(simulationYearStart) )
         file.rename("roots.pro", "roots.old")
         file.rename("myFile.txt", "roots.pro")        
         
-        #------------ Positionnement dans le repertoire "/exportParameters" et Modification des paramètres du fichier voxels ----------------#
+        #------------ Positionnement dans le repertoire "/exportParameters" et Modification des paramÃ¨tres du fichier voxels ----------------#
         setwd(paste(baseWD,"/",path_nouveau_repertoire, "/exportParameters", sep=""))
         param <- file("voxels.pro", open = "r")
         sortie <- file("myFile.txt", open = "w")
@@ -189,7 +189,7 @@ for (l in 1:length(simulationYearStart) )
           {
             nouvelle_ligne=paste(res[1],res[2],SafeVoxel[s],res[5],sep="\t")
             writeLines(nouvelle_ligne, con = sortie)
-            print (paste("ligne changé avec",nouvelle_ligne))
+            print (paste("ligne changÃ© avec",nouvelle_ligne))
           }   
           else {
             writeLines(line, con = sortie)
@@ -205,7 +205,7 @@ for (l in 1:length(simulationYearStart) )
         
 
         
-        #------------ on remonte au répertoire de base ------#
+        #------------ on remonte au rÃ©pertoire de base ------#
 #         setwd(baseWD)
         
         #-------------  LANCEMENT DE Hi-Safe en BATCH
